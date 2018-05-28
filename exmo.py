@@ -33,7 +33,7 @@ def on_press(key):
             emailinput = browser.find_element_by_id('reg_form_login')
             passwordinput = browser.find_element_by_id('reg_form_pass')
             emailinput.send_keys('shinodkir@gmail.com')
-            passwordinput.send_keys('P10rk15gn39p')
+            passwordinput.send_keys('')
         if key_press.char == 'b':
             content = browser.find_element_by_css_selector('#mCSB_5_container .trade_table tbody tr:nth-of-type(2)')
             price_td = content.find_element_by_class_name('tcol_price')
