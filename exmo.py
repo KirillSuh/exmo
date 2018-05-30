@@ -15,8 +15,8 @@ browser = webdriver.Chrome(homepath+'chromedriver')
 browser.get('https://exmo.me/ru/login')
 
 timeout = 10
-myhbz = 9959
-myhbz_price = 0.0152
+myhbz = 10000
+myhbz_price = 0.01507
 can_sell = 1
 myusd = 0
 try:
@@ -38,20 +38,23 @@ def on_press(key):
             emailinput.send_keys('shinodkir@gmail.com')
             passwordinput.send_keys('')
         if key_press.char == 'b':
+            content = browser.find_element_by_css_selector('#mCSB_4_container .trade_table tbody tr:nth-of-type(2)')
+            price_td = content.find_element_by_class_name('tcol_price')
+            price = price_td.text
+            print(price)
+            content.click()
+            count_inp = browser.find_element_by_name('buyAmount')
+            count_inp.clear()
+            count_inp.send_keys('200')
+        if key_press.char == 's':
             content = browser.find_element_by_css_selector('#mCSB_5_container .trade_table tbody tr:nth-of-type(2)')
             price_td = content.find_element_by_class_name('tcol_price')
             price = price_td.text
             print(price)
             content.click()
-            with open(homepath+'exmo/result.txt', 'a') as file:
-                file.write(
-                    'Продано: ' + datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S") + ' Цена ' + str(price)+ ' Количество ' + str(myhbz) + ' На счету ' + str(myusd) + '\n')
-        if key_press.char == 's':
-            content = browser.find_element_by_css_selector('#mCSB_6_container .trade_table tbody tr:nth-of-type(2)')
-            price_td = content.find_element_by_class_name('tcol_price')
-            price = price_td.text
-            print(price)
-            content.click()
+            count_inp = browser.find_element_by_name('sellAmount')
+            count_inp.clear()
+            count_inp.send_keys('200')
         if key_press.char == 'p':
             auto_broker()
 
